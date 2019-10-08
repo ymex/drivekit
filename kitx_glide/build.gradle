@@ -18,3 +18,9 @@ dependencies {
     androidTestImplementation dep.test.runner
     androidTestImplementation dep.test.espresso_core
 }
+
+//ext{
+//    mavenName = 'glide'
+//    mavenVersion = '1.0.0'
+//}
+//apply from: "../aar.gradle"

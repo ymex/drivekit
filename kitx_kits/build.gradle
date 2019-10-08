@@ -18,3 +18,11 @@ dependencies {
     androidTestImplementation dep.test.runner
     androidTestImplementation dep.test.espresso_core
 }
+
+
+
+//ext{
+//    mavenName = 'kits'
+//    mavenVersion = '1.0.1'
+//}
+//apply from: "../aar.gradle"
