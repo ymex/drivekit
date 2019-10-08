@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <cn.ymex.kitx.webview.WebViewX5
+            android:id="@+id/wvWeb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <cn.ymex.kitx.webview.SimpleProgressBar
+            android:visibility="gone"
+            tools:visibility="visible"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:max="100"
+            android:progress="25"
+            android:layout_height="2.4dip"
+            android:id="@+id/pbBar"/>
+
+</FrameLayout>

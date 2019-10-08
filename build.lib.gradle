@@ -1,0 +1,50 @@
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+def droid = rootProject.ext.android
+
+android {
+    compileSdkVersion droid.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion droid.minSdkVersion
+        targetSdkVersion droid.targetSdkVersion
+        versionCode droid.versionCode
+        versionName droid.versionName
+        testInstrumentationRunner droid.testInstrumentationRunner
+
+        consumerProguardFiles 'consumer-rules.pro'
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled false
+    }
+
+    //编译环境
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}

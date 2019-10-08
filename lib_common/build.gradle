@@ -1,0 +1,25 @@
+apply from: "../build.lib.gradle"
+
+
+def dep = rootProject.ext
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //android
+    api dep.kotlin.kotlin_stdlib_jdk7
+    api dep.androidx.appcompat
+    api dep.androidx.core_ktx
+    api dep.androidx.constraintlayout
+    api dep.androidx.google_material
+    api dep.dependencies.arouter_api
+
+    //third
+
+
+
+    //测试
+    testImplementation dep.test.junit
+    androidTestImplementation dep.test.runner
+    androidTestImplementation dep.test.espresso_core
+}

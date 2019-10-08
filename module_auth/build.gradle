@@ -1,0 +1,42 @@
+apply from: "../build.module.gradle"
+
+android {
+    defaultConfig {
+        if (isModule.toBoolean()) {
+            applicationId "cn.ymex.drivekit.module_auth"
+        }
+    }
+}
+
+def dep = rootProject.ext
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //android
+    api dep.kotlin.kotlin_stdlib_jdk7
+    api dep.androidx.appcompat
+    api dep.androidx.core_ktx
+    api dep.androidx.constraintlayout
+    api dep.androidx.google_material
+
+    api dep.androidx.lifecycle_extensions
+//    api dep.androidx.lifecycle_runtime
+//    api dep.androidx.lifecycle_common_java8
+//    api dep.androidx.lifecycle_compiler
+    api dep.androidx.activity_ktx
+//    api dep.androidx.lifecycle_viewmodel_ktx
+//    api dep.androidx.lifecycle_livedata_ktx
+    implementation project(path: ':lib_api')
+
+    //third
+
+    api dep.dependencies.arouter_api
+
+    //测试
+    testImplementation dep.test.junit
+    androidTestImplementation dep.test.runner
+    androidTestImplementation dep.test.espresso_core
+
+    //注解
+    kapt dep.dependencies.arouter_compiler
+}

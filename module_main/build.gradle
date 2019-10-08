@@ -1,0 +1,25 @@
+apply from: "../build.module.gradle"
+
+android {
+    defaultConfig {
+        if (isModule.toBoolean()) {
+            applicationId "cn.ymex.drivekit.module_main"
+        }
+    }
+}
+
+def dep = rootProject.ext
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(path: ':lib_common')
+    implementation project(path: ':lib_api')
+    kapt dep.dependencies.arouter_compiler
+
+    //测试
+    testImplementation dep.test.junit
+    androidTestImplementation dep.test.runner
+    androidTestImplementation dep.test.espresso_core
+
+}
