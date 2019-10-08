@@ -18,8 +18,8 @@ dependencies {
 
 }
 
-//ext{
-//    mavenName = 'widget'
-//    mavenVersion = '1.0.0'
-//}
-//apply from: "../aar.gradle"
+ext{
+    mavenName = 'widget'
+    mavenVersion = '1.0.0'
+}
+apply from: "../aar.gradle"

@@ -1,7 +1,7 @@
 apply plugin: 'maven'
 
 ext {
-    PUBLISH_GROUP_ID = 'com.ymex.kitx'
+    PUBLISH_GROUP_ID = 'cn.ymex.kitx'
     PUBLISH_ARTIFACT_IDS = [
             kits   : 'kits',//1.0.0
             adapter: 'pure-adapter',//1.0.0

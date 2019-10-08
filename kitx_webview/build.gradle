@@ -16,8 +16,8 @@ dependencies {
     androidTestImplementation dep.test.espresso_core
 }
 
-//ext{
-//    mavenName = 'x5'
-//    mavenVersion = '1.0.0'
-//}
-//apply from: "../aar.gradle"
+ext{
+    mavenName = 'x5'
+    mavenVersion = '1.0.0'
+}
+apply from: "../aar.gradle"

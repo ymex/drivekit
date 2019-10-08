@@ -24,6 +24,7 @@ buildscript {
         //其他仓库
         mavenCentral()
         maven { url 'https://jitpack.io' }
+        maven { url "https://raw.githubusercontent.com/ymex/android/master" }
 
     }
     dependencies {
@@ -48,6 +49,7 @@ allprojects {
         //其他仓库
         mavenCentral()
         maven { url 'https://jitpack.io' }
+        maven { url "https://raw.githubusercontent.com/ymex/android/master" }
     }
 }
 
