@@ -4,13 +4,14 @@ import android.app.Application
 import cn.ymex.drivekit.common.kits.aRouter
 import cn.ymex.drivekit.common.life.AppLifeCycleManager
 import cn.ymex.drivekit.common.provider.AppLifeCycleProvider
+import cn.ymex.kitx.kits.ApplicationContext
 import com.alibaba.android.arouter.launcher.ARouter
 
 /**
  * Created by ymex on 2019/9/20.
  * About:
  */
-class AppContext : Application() {
+class AppContext : ApplicationContext() {
     override fun onCreate() {
         super.onCreate()
         // 这两行必须写在init之前，否则这些配置在init过程中将无效

@@ -9,7 +9,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
 /**
  * 扩展Application  增加对app 进入前后台的监听
  */
-class ApplicationContext : Application() {
+open class ApplicationContext : Application() {
     override fun onCreate() {
         super.onCreate()
         ProcessLifecycleOwner.get().lifecycle.addObserver(object : LifecycleObserver {

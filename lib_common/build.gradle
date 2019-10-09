@@ -15,7 +15,11 @@ dependencies {
     api dep.dependencies.arouter_api
 
     //third
-
+    api dep.dependencies.kitx_kits
+    api dep.dependencies.kitx_pure_adapter
+    api dep.dependencies.kitx_x5_webview
+    api dep.dependencies.kitx_glide_imageview
+    api dep.dependencies.kitx_widget_components
 
 
     //测试
