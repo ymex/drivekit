@@ -38,6 +38,7 @@ ext {
     test = [
             junit        : "junit:junit:${versions.junit_version}",
             runner       : 'androidx.test:runner:1.2.0',
+            ext_junit    : "androidx.test.ext:junit:1.1.1",
             espresso_core: 'androidx.test.espresso:espresso-core:3.2.0',
     ]
 

@@ -1,0 +1,37 @@
+apply from: "../build.lib.gradle"
+
+
+def dep = rootProject.ext
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api dep.kotlin.kotlin_stdlib_jdk7
+
+//    api dep.dependencies.kitx_kits
+//    api dep.dependencies.kitx_pure_adapter
+//    api dep.dependencies.kitx_x5_webview
+//    api dep.dependencies.kitx_glide_imageview
+//    api dep.dependencies.kitx_widget_components
+
+    api project(path: ':kitx_kits')
+    api project(path: ':kitx_adapter')
+    api project(path: ':kitx_glide')
+    api project(path: ':kitx_webview')
+    api project(path: ':kitx_widget')
+
+    api dep.dependencies.rxjava2
+    api dep.dependencies.rxandroid2
+
+    api dep.dependencies.okhttp3
+    api dep.dependencies.okhttp3_logging_interceptor
+    api dep.dependencies.retrofit2
+    api dep.dependencies.retrofit2_converter_gson
+    api dep.dependencies.retrofit2_adapter_rxjava2
+
+    api dep.dependencies.arouter_api
+
+    testImplementation dep.test.junit
+    androidTestImplementation dep.test.ext_junit
+    androidTestImplementation dep.test.espresso_core
+}

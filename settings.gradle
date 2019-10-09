@@ -1,2 +1,2 @@
-include ':app', ':lib_common', ':module_main', ':kitx_webview', ':kitx_kits', ':kitx_glide', ':kitx_adapter', ':kitx_widget', ':lib_api', ':module_auth'
+include ':app', ':lib_common', ':module_main', ':kitx_webview', ':kitx_kits', ':kitx_glide', ':kitx_adapter', ':kitx_widget', ':lib_api', ':module_auth', ':lib_component'
 rootProject.name='ymex.drivekit'

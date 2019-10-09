@@ -10,10 +10,12 @@ dependencies {
     implementation dep.androidx.appcompat
     implementation dep.androidx.core_ktx
     implementation dep.androidx.constraintlayout
+    implementation dep.androidx.recyclerview
+    implementation dep.androidx.google_material
 
     //测试
     testImplementation dep.test.junit
-    androidTestImplementation dep.test.runner
+    androidTestImplementation dep.test.ext_junit
     androidTestImplementation dep.test.espresso_core
 
 }

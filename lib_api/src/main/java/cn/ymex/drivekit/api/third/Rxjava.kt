@@ -31,26 +31,3 @@ fun <T> Observable<T>.asLife(viewModel: RxViewModel): Observable<T> {
         }
     }
 }
-
-
-fun <T> Observable<T>.result(viewModel: RxViewModel) {
-
-    this.subscribe(object : Observer<T> {
-        override fun onComplete() {
-
-        }
-
-        override fun onSubscribe(d: Disposable) {
-            viewModel.disposable.add(d)
-        }
-
-        override fun onNext(t: T) {
-
-        }
-
-        override fun onError(e: Throwable) {
-
-        }
-    })
-
-}

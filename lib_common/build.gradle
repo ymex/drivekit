@@ -5,25 +5,24 @@ def dep = rootProject.ext
 
 dependencies {
 
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //android
-    api dep.kotlin.kotlin_stdlib_jdk7
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
     api dep.androidx.appcompat
     api dep.androidx.core_ktx
     api dep.androidx.constraintlayout
     api dep.androidx.google_material
-    api dep.dependencies.arouter_api
+    api dep.androidx.lifecycle_extensions
+    api dep.androidx.activity_ktx
 
-    //third
-    api dep.dependencies.kitx_kits
-    api dep.dependencies.kitx_pure_adapter
-    api dep.dependencies.kitx_x5_webview
-    api dep.dependencies.kitx_glide_imageview
-    api dep.dependencies.kitx_widget_components
+//    api dep.androidx.lifecycle_runtime
+//    api dep.androidx.lifecycle_common_java8
+//    api dep.androidx.lifecycle_compiler
+//    api dep.androidx.lifecycle_viewmodel_ktx
+//    api dep.androidx.lifecycle_livedata_ktx
 
-
+    api project(path: ':lib_component')
     //测试
     testImplementation dep.test.junit
-    androidTestImplementation dep.test.runner
+    androidTestImplementation dep.test.ext_junit
     androidTestImplementation dep.test.espresso_core
 }

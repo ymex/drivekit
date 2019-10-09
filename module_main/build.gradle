@@ -15,11 +15,11 @@ dependencies {
 
     implementation project(path: ':lib_common')
     implementation project(path: ':lib_api')
+
     kapt dep.dependencies.arouter_compiler
 
-    //测试
     testImplementation dep.test.junit
-    androidTestImplementation dep.test.runner
+    androidTestImplementation dep.test.ext_junit
     androidTestImplementation dep.test.espresso_core
 
 }

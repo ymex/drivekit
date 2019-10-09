@@ -16,7 +16,7 @@ import com.google.gson.JsonObject
  */
 class MainViewModel : RxViewModel() {
 
-    private val _mainData: MutableLiveData<JsonObject> = MutableLiveData(JsonObject())
+    private val _mainData: MutableLiveData<JsonObject> = MutableLiveData()
     val mainData: LiveData<JsonObject> = _mainData
 
     @SuppressLint("CheckResult")

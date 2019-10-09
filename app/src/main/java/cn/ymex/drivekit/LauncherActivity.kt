@@ -30,7 +30,6 @@ class LauncherActivity : AppCompatActivity() {
 
             override fun onAnimationEnd(animation: Animation) {
                 println("------------------动画完成")
-                ARouter.RAW_URI
                 ARouter.getInstance().build("/mod_main/start").navigation()
             }
 

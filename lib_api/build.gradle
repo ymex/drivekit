@@ -6,24 +6,12 @@ def dep = rootProject.ext
 dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //android
-    api dep.kotlin.kotlin_stdlib_jdk7
-    api dep.androidx.appcompat
-    api dep.androidx.core_ktx
-    //third
-
-    api dep.dependencies.rxjava2
-    api dep.dependencies.rxandroid2
-    api dep.dependencies.okhttp3
-    api dep.dependencies.okhttp3_logging_interceptor
-    api dep.dependencies.retrofit2
-    api dep.dependencies.retrofit2_converter_gson
-    api dep.dependencies.retrofit2_adapter_rxjava2
-
-    implementation project(path: ':kitx_kits')
+    implementation dep.androidx.appcompat
+    implementation dep.androidx.core_ktx
+    implementation project(path: ':lib_component')
 
     //测试
     testImplementation dep.test.junit
-    androidTestImplementation dep.test.runner
+    androidTestImplementation dep.test.ext_junit
     androidTestImplementation dep.test.espresso_core
 }

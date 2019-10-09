@@ -8,16 +8,17 @@ def dep = rootProject.ext
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(path: ':lib_common')
+    api project(path: ':lib_common')
     kapt dep.dependencies.arouter_compiler
 
 
     if (!isModule.toBoolean()) {
         implementation project(path: ':module_main')
+        implementation project(path: ':module_auth')
     }
 
     //测试
     testImplementation dep.test.junit
-    androidTestImplementation dep.test.runner
+    androidTestImplementation dep.test.ext_junit
     androidTestImplementation dep.test.espresso_core
 }
