@@ -17,7 +17,7 @@ dependencies {
 }
 
 ext{
-    mavenName = 'x5'
-    mavenVersion = '1.0.0'
+    mavenName = "x5"
+    mavenVersion = "${dep.versions.kitx_x5_webview}"
 }
-apply from: "../aar.gradle"
+apply from: "../github.gradle"

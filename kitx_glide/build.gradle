@@ -20,7 +20,7 @@ dependencies {
 }
 
 ext{
-    mavenName = 'glide'
-    mavenVersion = '1.0.0'
+    mavenName = "glide"
+    mavenVersion = "${dep.versions.kitx_glide_imageview}"
 }
-apply from: "../aar.gradle"
+apply from: "../github.gradle"

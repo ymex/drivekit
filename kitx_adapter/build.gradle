@@ -20,7 +20,7 @@ dependencies {
 }
 
 ext{
-    mavenName = 'adapter'
-    mavenVersion = '1.0.0'
+    mavenName = "adapter"
+    mavenVersion = "${dep.versions.kitx_pure_adapter}"
 }
-apply from: "../aar.gradle"
+apply from: "../github.gradle"

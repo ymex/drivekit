@@ -21,7 +21,7 @@ dependencies {
 }
 
 ext{
-    mavenName = 'widget'
-    mavenVersion = '1.0.0'
+    mavenName = "widget"
+    mavenVersion = "${dep.versions.kitx_widget_components}"
 }
-apply from: "../aar.gradle"
+apply from: "../github.gradle"

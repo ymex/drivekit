@@ -10,7 +10,7 @@ dependencies {
     implementation dep.kotlin.kotlin_stdlib_jdk7
     implementation dep.androidx.appcompat
     implementation dep.androidx.core_ktx
-    implementation dep.androidx.lifecycle_extensions
+    compileOnly dep.dependencies.rxjava2
 
 
     //测试
@@ -22,7 +22,7 @@ dependencies {
 
 
 ext{
-    mavenName = "kits"
-    mavenVersion = "${dep.versions.kitx_kits}"
+    mavenName = "permission"
+    mavenVersion = "${dep.versions.kitx_rx_permission}"
 }
 apply from: "../github.gradle"
