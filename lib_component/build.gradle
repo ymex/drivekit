@@ -31,6 +31,8 @@ dependencies {
 
     api dep.dependencies.arouter_api
 
+    api dep.dependencies.glide
+
     testImplementation dep.test.junit
     androidTestImplementation dep.test.ext_junit
     androidTestImplementation dep.test.espresso_core

@@ -25,11 +25,17 @@ class LoginViewModel(val authRepos: AuthRepos) : RxViewModel() {
             _toastLiveData.value = "用户名或密码错误"
             return
         }
+        println("------------------------login")
         authRepos.login(account, password).asLife(this)
             .subscribe({
+                println("------------------------login:"+it.msg)
                 _toastLiveData.value = it.msg
-            }) {
+            },{
+                println("------------------------login:"+it.localizedMessage)
                 _toastLiveData.value = it.localizedMessage
+            }){
+                println("------------------------login:finish")
+                _toastLiveData.value = "finish"
             }
     }
 

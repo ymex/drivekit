@@ -34,11 +34,13 @@ class RetrofitManager private constructor() {
     private fun getOkHttpClientBuilder(): OkHttpClient.Builder {
         //信任所有证书
         val sslParams = SSLKit.genSSLParams(null, null, null)
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
             .connectionPool(ConnectionPool(5, 5, TimeUnit.MINUTES))
             .retryOnConnectionFailure(true)
             .dispatcher(Dispatcher())
-            .addInterceptor(HttpLoggingInterceptor())
+            .addInterceptor(loggingInterceptor)
             .sslSocketFactory(sslParams.sslSocketFactory, sslParams.trustManager)
             .hostnameVerifier(HostnameVerifier { _, _ -> true })
             .readTimeout(30, TimeUnit.SECONDS)

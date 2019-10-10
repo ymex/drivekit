@@ -8,7 +8,7 @@ def dep = rootProject.ext
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api project(path: ':lib_common')
+    implementation project(path: ':lib_common')
     kapt dep.dependencies.arouter_compiler
 
 
