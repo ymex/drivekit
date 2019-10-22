@@ -22,7 +22,7 @@ public class ApplicationState implements LifecycleObserver {
     }
 
 
-    public static synchronized ApplicationState instance(Context context, Callback callback) {
+    public static synchronized ApplicationState create(Context context, Callback callback) {
         if (! (context instanceof Application)) {
             throw new IllegalArgumentException("context just allow application");
         }

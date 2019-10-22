@@ -11,8 +11,8 @@ open class ApplicationContext : Application(), ApplicationState.Callback {
 
     override fun onCreate() {
         super.onCreate()
-        ActivityStack.instance().registerActivityLifecycleCallbacks(this)
-        ApplicationState.instance(this, this).registApplicationState()
+        ActivityStack.get().registerActivityLifecycleCallbacks(this)
+        ApplicationState.create(this, this).registApplicationState()
         Kits.create(this)
     }
 

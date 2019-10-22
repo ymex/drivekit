@@ -2,16 +2,15 @@ package cn.ymex.kitx.kits;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
+import java.util.Stack;
 
 /**
  * Activity 堆栈管理。
@@ -19,7 +18,7 @@ import java.util.Queue;
 public final class ActivityStack implements Application.ActivityLifecycleCallbacks {
 
     private static ActivityStack activityStack;
-    private Queue<Activity> activitieQuene = new LinkedList<>();
+    private Stack<Activity> actStack = new Stack<>();
     /**
      * 是否自动管理activity,默认为true ，若设置为false 则需要自己手动处理activity 出入栈。
      */
@@ -34,20 +33,20 @@ public final class ActivityStack implements Application.ActivityLifecycleCallbac
         this(true);
     }
 
-    private static synchronized ActivityStack get(boolean auto) {
+    private static synchronized ActivityStack instance(boolean auto) {
         if (activityStack == null) {
             activityStack = new ActivityStack(auto);
         }
         return activityStack;
     }
 
-    public static ActivityStack instance() {
-        return get(true);
+    public static ActivityStack get() {
+        return instance(true);
     }
 
 
     public void registerActivityLifecycleCallbacks(Application context) {
-            context.registerActivityLifecycleCallbacks(this);
+        context.registerActivityLifecycleCallbacks(this);
     }
 
     /**
@@ -60,30 +59,30 @@ public final class ActivityStack implements Application.ActivityLifecycleCallbac
         return this;
     }
 
-    public Queue<Activity> getQuene() {
-        return activitieQuene;
+    private Stack<Activity> getStack() {
+        return actStack;
     }
 
     /**
-     * 线束当前Activity
+     * 线束栈顶Activity
      */
-    public void finishCurrentActivity() {
-        if (activitieQuene.isEmpty()) {
+    public void finishTop() {
+        if (getStack().isEmpty()) {
             return;
         }
-        finishActivity(activitieQuene.poll());
+        finish(getStack().pop());
     }
 
     /**
-     * 获取当前activity
+     * 获取栈顶activity
      *
      * @return Activity , when activity quene is empty return null.
      */
-    public Activity getCurrentActivity() {
-        if (activitieQuene.isEmpty()) {
+    public Activity getTop() {
+        if (getStack().isEmpty()) {
             return null;
         }
-        return activitieQuene.peek();
+        return getStack().peek();
     }
 
     /**
@@ -92,9 +91,9 @@ public final class ActivityStack implements Application.ActivityLifecycleCallbac
      * @param name activity class name
      * @return 所有同名activity list
      */
-    public List<Activity> getActivities(String name) {
+    public List<Activity> getItems(String name) {
         List<Activity> acts = new ArrayList<>();
-        for (Activity act : activitieQuene) {
+        for (Activity act : getStack()) {
             if (act.getClass().getName().equals(name)) {
                 acts.add(act);
             }
@@ -108,8 +107,8 @@ public final class ActivityStack implements Application.ActivityLifecycleCallbac
      * @param name activity class name
      * @return null or last activity
      */
-    public Activity getLastActivity(String name) {
-        List<Activity> acts = getActivities(name);
+    public Activity getLastItem(String name) {
+        List<Activity> acts = getItems(name);
         if (acts.isEmpty()) {
             return null;
         }
@@ -122,8 +121,8 @@ public final class ActivityStack implements Application.ActivityLifecycleCallbac
      * @param name activity class name
      * @return null or first activity
      */
-    public Activity getFirstActivity(String name) {
-        List<Activity> acts = getActivities(name);
+    public Activity getFirstItem(String name) {
+        List<Activity> acts = getItems(name);
         if (acts.isEmpty()) {
             return null;
         }
@@ -136,13 +135,13 @@ public final class ActivityStack implements Application.ActivityLifecycleCallbac
      *
      * @param name activity class name
      */
-    public void finishActivity(String name) {
-        List<Activity> acts = getActivities(name);
+    public void finish(String name) {
+        List<Activity> acts = getItems(name);
         if (acts.isEmpty()) {
             return;
         }
         for (Activity act : acts) {
-            finishActivity(act);
+            finish(act);
         }
     }
 
@@ -151,33 +150,48 @@ public final class ActivityStack implements Application.ActivityLifecycleCallbac
      *
      * @param activity 入参activity
      */
-    public void finishActivity(Activity activity) {
-        if (activity == null) {
+    public void finish(Activity activity) {
+
+        if (activity == null || activity.isFinishing() ) {
             return;
         }
-        if (!activity.isFinishing()) {
-            activity.finish();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            if (activity.isDestroyed()) {
+                return;
+            }
         }
+        activity.finish();
     }
 
 
-    /**
-     * 入栈activity
-     *
-     * @param activity
-     */
-    public void put(Activity activity) {
-        if (!activitieQuene.contains(activity)) {
-            activitieQuene.add(activity);
+
+    @NonNull
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (Activity act : getStack()) {
+            builder.append(" {");
+            builder.append(act.getClass().getName());
+            builder.append(" }");
         }
+        if (getStack().isEmpty()) {
+            builder.append("activity stack is empty!");
+        }
+        return builder.toString();
     }
 
-    /**
-     * 清空
-     */
-    public ActivityStack clear() {
-        activitieQuene.clear();
-        return this;
+
+    public Activity peek() {
+        return getStack().peek();
+    }
+
+    public Activity pop() {
+        checkArgument();
+        return getStack().pop();
+    }
+
+    public boolean isEmpty() {
+        return getStack().isEmpty();
     }
 
     /**
@@ -186,13 +200,52 @@ public final class ActivityStack implements Application.ActivityLifecycleCallbac
      * @param activity
      */
     public void remove(Activity activity) {
-        activitieQuene.remove(activity);
+        checkArgument();
+        _remove(activity);
+    }
+
+    /**
+     * 清空
+     */
+    public ActivityStack clear() {
+        getStack().clear();
+        return this;
+    }
+
+    /**
+     * 入栈activity
+     *
+     * @param activity
+     */
+    public void push(Activity activity) {
+        checkArgument();
+        _push(activity);
+    }
+
+
+    private void checkArgument() {
+        if (autoManage) {
+            throw new IllegalArgumentException("if autoManage is true , ActivityStack is not allow opt!");
+        }
+    }
+
+
+
+    private void _remove(Activity activity) {
+        actStack.remove(activity);
+    }
+
+
+    private void _push(Activity activity) {
+        if (!getStack().contains(activity)) {
+            getStack().push(activity);
+        }
     }
 
     @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
         if (autoManage) {
-            put(activity);
+            _push(activity);
         }
 
     }
@@ -225,7 +278,7 @@ public final class ActivityStack implements Application.ActivityLifecycleCallbac
     @Override
     public void onActivityDestroyed(@NonNull Activity activity) {
         if (autoManage) {
-            remove(activity);
+            _remove(activity);
         }
     }
 }

@@ -4,8 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import cn.ymex.drivekit.api.http.RetrofitManager
-import cn.ymex.drivekit.api.third.asyncIo
 import cn.ymex.drivekit.api.module.getMainApiService
+import cn.ymex.drivekit.api.third.asyncIo
+import cn.ymex.drivekit.common.kits.aRouter
+import cn.ymex.drivekit.common.kits.completion
+import cn.ymex.kitx.kits.ActivityStack
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
@@ -24,18 +27,22 @@ class MainActivity : AppCompatActivity() {
             // ARouter.getInstance().build("/mod_main/param").withString("paramName","ymex").navigation(this,1000)
 
 
+            //println("----------------:: get "+ aRouter("/mod_main/param").completion().destination.name)
+            println("--------:::"+ActivityStack.get().toString())
+
             ARouter.getInstance().build("/mod_main/param")
-                .withString("paramName", "ymex")
+                .completion().withString("paramName", "ymex")
                 .navigation(this, 1000, object : NavigationCallback {
                     override fun onLost(postcard: Postcard?) {
                         println("----------------:onLost ${postcard.toString()}")
                     }
 
                     override fun onFound(postcard: Postcard?) {
-                        println("----------------:onFound ${postcard.toString()}")
+                        println("----------------:onFound ${postcard.toString()}  ${postcard?.destination}")
                     }
 
                     override fun onInterrupt(postcard: Postcard?) {
+
                         println("----------------:onInterrupt ${postcard.toString()}")
                     }
 
@@ -62,6 +69,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1000) {
+            println("--------::: result  "+ActivityStack.get().toString())
             println("------------onActivityResult:" + data?.getStringExtra("param_name"))
         }
     }
