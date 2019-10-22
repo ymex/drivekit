@@ -1,27 +1,24 @@
 package cn.ymex.drivekit.main
 
 import android.app.Application
-import cn.ymex.drivekit.common.life.AppLifeCycle
-import com.alibaba.android.arouter.launcher.ARouter
+import cn.ymex.drivekit.common.BaseAppContext
+import cn.ymex.drivekit.common.app.IModelAppContext
 
 /**
  * Created by ymex on 2019/9/20.
  * About:
  */
-class AppContext : Application() {
+class AppContext : BaseAppContext() {
     override fun onCreate() {
         super.onCreate()
-        MainAppLifeCycle(this).onCreate()
+        MainModelAppContext(this).onCreate()
     }
 }
 
-class MainAppLifeCycle(val application: Application) : AppLifeCycle(application) {
+class MainModelAppContext(val application: Application) : IModelAppContext(application) {
 
     override fun onCreate() {
         println("---------create MainAppLifeCycle")
-        ARouter.openLog()
-        ARouter.openDebug()
-        ARouter.init(application)
 
     }
 

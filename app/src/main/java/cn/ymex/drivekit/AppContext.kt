@@ -1,30 +1,37 @@
 package cn.ymex.drivekit
 
-import android.app.Application
+import android.content.Context
+import cn.ymex.drivekit.common.BaseAppContext
 import cn.ymex.drivekit.common.kits.aRouter
-import cn.ymex.drivekit.common.life.AppLifeCycleManager
-import cn.ymex.drivekit.common.provider.AppLifeCycleProvider
-import com.alibaba.android.arouter.launcher.ARouter
+import cn.ymex.drivekit.common.app.ModelAppContextManager
+import cn.ymex.drivekit.common.provider.AppContextProvider
 
 /**
  * Created by ymex on 2019/9/20.
  * About:
  */
-class AppContext : Application() {
+class AppContext : BaseAppContext() {
     override fun onCreate() {
         super.onCreate()
-        // 这两行必须写在init之前，否则这些配置在init过程中将无效
-        // openLog ： 打印日志 。openDebug：开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
-        ARouter.openLog()
-        ARouter.openDebug()
-        ARouter.init(this)
-
 
         //注册module main 模块
-        val mainLifeCycle = aRouter("/provider/life/main").navigation()
-        if (mainLifeCycle != null) {
-            AppLifeCycleManager.register((mainLifeCycle as AppLifeCycleProvider).getLifeCycle(this))
+        val mainAppContext = aRouter("/provider/life/main").navigation()
+        if (mainAppContext != null) {
+            ModelAppContextManager.register((mainAppContext as AppContextProvider).getModelAppContext(this))
         }
-        AppLifeCycleManager.execute()
+
+        ModelAppContextManager.execute()
+    }
+
+
+    override fun onAppEnterBackground(context: Context?) {
+        super.onAppEnterBackground(context)
+        println("--------------------app:onAppEnterBackground")
+
+    }
+
+    override fun onAppEnterForeground(context: Context?) {
+        super.onAppEnterForeground(context)
+        println("--------------------app:onAppEnterForeground")
     }
 }
